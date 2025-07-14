@@ -13,6 +13,14 @@ app.use(cors({
   credentials: true
 }));
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../ui/out')));
+
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../ui/out/index.html'));
+});
+
 mongoose.connect(process.env.MONGO_URI).then(() => {
   app.listen(5001, () => console.log('Server running on port 5001'));
 });
