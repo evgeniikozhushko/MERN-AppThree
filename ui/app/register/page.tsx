@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-// Get API base URL from environment or fallback to localhost
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
+// Get API base URL from environment or fallback to Render backend
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://appthree.onrender.com';
 
 export default function Register() {
     const [email, setEmail] = useState('');

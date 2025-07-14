@@ -15,7 +15,8 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Get API base URL from environment or fallback to localhost
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
+// TODO: Replace with your actual Render backend URL
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://appthree.onrender.com';
 
 /**
  * AuthProvider Component

@@ -4,8 +4,8 @@ import { getUsers } from "../lib/api";
 import { useAuth } from "../utils/auth";
 import Image from "next/image";
 
-// Get API base URL from environment or fallback to localhost
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
+// Get API base URL from environment or fallback to Render backend
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://appthree.onrender.com';
 
 type User = {
   _id: string;

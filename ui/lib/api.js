@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Use environment variable for API URL, fallback to localhost for development
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
+// Use environment variable for API URL, fallback to Render backend
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://appthree.onrender.com/api';
 
 export const getUsers = () => axios.get(`${API_BASE_URL}/users`);
 export const createUser = (data) => axios.post(`${API_BASE_URL}/users/create`, data);
