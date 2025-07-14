@@ -29,11 +29,12 @@ export default function CreateUser() {
       const res = await getUsers();
       setUsers(res.data);
       setForm({ name: "", email: "" });
-    } catch (err: any) {
-      if (err.response?.data?.error) {
-        setError(err.response.data.error);
-      } else if (err.response?.data?.message) {
-        setError(err.response.data.message);
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { error?: string; message?: string } } };
+      if (error.response?.data?.error) {
+        setError(error.response.data.error);
+      } else if (error.response?.data?.message) {
+        setError(error.response.data.message);
       } else {
         setError("An error occurred. Please try again.");
       }

@@ -24,7 +24,7 @@ export default function Login() {
                 const data = await res.json();
             setError(data.message || 'Login failed'); 
             }
-        } catch (err) {
+        } catch {
                 setError('Network error. Please try again.');
         }
     };
@@ -66,7 +66,7 @@ export default function Login() {
                 )}
 
                 <div className="text-center">
-                    <p>Don't have an account? <a href="/register" style={{color: 'rgb(127, 255, 212)', textDecoration: 'underline'}}>Register here</a></p>
+                    <p>Don&apos;t have an account? <a href="/register" style={{color: 'rgb(127, 255, 212)', textDecoration: 'underline'}}>Register here</a></p>
                 </div>
             </main>
         </div>

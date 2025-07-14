@@ -40,7 +40,7 @@ export default function Dashboard() {
           setSystemStatus("Offline");
           setStatusColor("red");
         }
-      } catch (error) {
+      } catch {
         setSystemStatus("Offline");
         setStatusColor("red");
       }
