@@ -4,6 +4,9 @@ import { getUsers } from "../lib/api";
 import { useAuth } from "../utils/auth";
 import Image from "next/image";
 
+// Get API base URL from environment or fallback to localhost
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
+
 type User = {
   _id: string;
   name: string;
@@ -32,7 +35,7 @@ export default function Dashboard() {
   useEffect(() => {
     const checkBackend = async () => {
       try {
-        const response = await fetch("http://localhost:5001/api/users");
+        const response = await fetch(`${API_BASE_URL}/api/users`);
         if (response.ok) {
           setSystemStatus("Online");
           setStatusColor("green");

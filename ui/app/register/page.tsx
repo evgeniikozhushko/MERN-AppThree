@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
+// Get API base URL from environment or fallback to localhost
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
+
 export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -12,7 +15,7 @@ export default function Register() {
 
     const handleRegister = async () => {
         try {
-            const res = await fetch('http://localhost:5001/api/auth/register', {
+            const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },

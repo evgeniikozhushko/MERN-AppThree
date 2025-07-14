@@ -14,6 +14,9 @@ interface AuthContextType {
 // Create React context for authentication state
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Get API base URL from environment or fallback to localhost
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
+
 /**
  * AuthProvider Component
  * 
@@ -43,7 +46,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
    */
   const checkAuth = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/auth/me', {
+      const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
         method: 'GET',
         credentials: 'include'  // Include cookies for session authentication
       });
@@ -79,7 +82,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = async () => {
     try {
       // Call backend to invalidate session
-      await fetch('http://localhost:5001/api/auth/logout', {
+      await fetch(`${API_BASE_URL}/api/auth/logout`, {
         method: 'POST',
         credentials: 'include'
       });
