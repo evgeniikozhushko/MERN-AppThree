@@ -38,6 +38,18 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'MERN Backend API is running!',
+    endpoints: {
+      test: '/test',
+      users: '/api/users',
+      auth: '/api/auth/*'
+    }
+  });
+});
+
 // Test route to verify server is working
 app.get('/test', (req, res) => {
   res.json({ message: 'Backend is working!' });
