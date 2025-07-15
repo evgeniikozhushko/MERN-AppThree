@@ -13,20 +13,25 @@ app.use(cookieParser());
 // More flexible CORS for development
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
-    
     if (process.env.NODE_ENV === 'production') {
-      // In production, only allow specific domains
-      const allowedOrigins = ['https://your-frontend-domain.netlify.app', 'https://your-frontend-domain.vercel.app'];
-      if (allowedOrigins.indexOf(origin) !== -1) {
+      const allowedOrigins = [
+        'https://your-frontend-domain.netlify.app',
+        'https://your-frontend-domain.vercel.app',
+        'https://appthree.onrender.com'
+      ];
+      if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error('Not allowed by CORS'));
       }
     } else {
-      // In development, allow any localhost or local IP with any port
-      if (origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes('192.168.')) {
+      // Allow localhost and local IPs for dev
+      if (
+        origin.includes('localhost') ||
+        origin.includes('127.0.0.1') ||
+        origin.startsWith('http://192.168.')
+      ) {
         callback(null, true);
       } else {
         callback(new Error('Not allowed by CORS'));
