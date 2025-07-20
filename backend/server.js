@@ -14,28 +14,43 @@ app.use(cookieParser());
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
-    if (process.env.NODE_ENV === 'production') {
-      const allowedOrigins = [
-        'https://your-frontend-domain.netlify.app',
-        'https://your-frontend-domain.vercel.app',
-        'https://appthree.onrender.com'
-      ];
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    } else {
-      // Allow localhost and local IPs for dev
+    
+    const allowedOrigins = [
+      // Production URLs - update these with actual frontend URLs
+      'https://appthree-frontend.onrender.com',
+      'https://appthree-ui.onrender.com',
+      'https://mern-appthree.onrender.com',
+      'https://appthree.onrender.com',
+      
+      // Development URLs
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://localhost:3002',
+      'http://127.0.0.1:3000',
+      'http://127.0.0.1:3001',
+      'http://127.0.0.1:3002'
+    ];
+    
+    // Always allow if origin is in allowed list
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else if (process.env.NODE_ENV !== 'production') {
+      // In development, also allow localhost and local IPs
       if (
-        origin.includes('localhost') ||
-        origin.includes('127.0.0.1') ||
-        origin.startsWith('http://192.168.')
+        origin && (
+          origin.includes('localhost') ||
+          origin.includes('127.0.0.1') ||
+          origin.startsWith('http://192.168.') ||
+          origin.startsWith('https://localhost') ||
+          origin.includes('.onrender.com')
+        )
       ) {
         callback(null, true);
       } else {
         callback(new Error('Not allowed by CORS'));
       }
+    } else {
+      callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true

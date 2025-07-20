@@ -21,15 +21,22 @@ export default function Dashboard() {
   const { isAuthenticated, user } = useAuth();
   
   useEffect(() => {
-    if (isAuthenticated) {
-      // Only fetch users if authenticated
-      getUsers()
-        .then((res) => setUsers(res.data))
-        .catch((err) => console.error(err))
-        .finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
+    const fetchUsers = async () => {
+      if (isAuthenticated) {
+        try {
+          const res = await getUsers();
+          setUsers(res.data);
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+    
+    fetchUsers();
   }, [isAuthenticated]);
 
   useEffect(() => {
@@ -43,7 +50,8 @@ export default function Dashboard() {
           setSystemStatus("Offline");
           setStatusColor("red");
         }
-      } catch {
+      } catch (error) {
+        console.error('Backend check error:', error);
         setSystemStatus("Offline");
         setStatusColor("red");
       }
